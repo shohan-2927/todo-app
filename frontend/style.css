@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+#note-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+#note-input {
+  flex: 1;
+  padding: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#notes-list {
+  list-style: none;
+  padding: 0;
+}
+
+#notes-list li {
+  background: #eee;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
