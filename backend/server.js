@@ -1,40 +1,48 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db'); // our database connection from db.js
+const { db, initDb } = require('./db');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Render assigns its own PORT — this handles both cases
 
 app.use(express.json());
 app.use(cors());
 
-// ROUTE 1: Get all notes — now reading from the database instead of an array
-app.get('/notes', (req, res) => {
-  const notes = db.prepare('SELECT * FROM notes').all();
-  res.json(notes);
+// ROUTE 1: Get all notes
+app.get('/notes', async (req, res) => {
+  const result = await db.execute('SELECT * FROM notes');
+  res.json(result.rows);
 });
 
-// ROUTE 2: Add a new note — now saved into the database file
-app.post('/notes', (req, res) => {
+// ROUTE 2: Add a new note
+app.post('/notes', async (req, res) => {
   const { text } = req.body;
 
   if (!text || text.trim() === '') {
     return res.status(400).json({ error: 'Note text is required' });
   }
 
-  const result = db.prepare('INSERT INTO notes (text) VALUES (?)').run(text);
-  const newNote = { id: result.lastInsertRowid, text };
+  const result = await db.execute({
+    sql: 'INSERT INTO notes (text) VALUES (?)',
+    args: [text],
+  });
 
-  res.status(201).json(newNote);
+  res.status(201).json({ id: Number(result.lastInsertRowid), text });
 });
 
-// ROUTE 3: Delete a note by id
-app.delete('/notes/:id', (req, res) => {
+// ROUTE 3: Delete a note
+app.delete('/notes/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  db.prepare('DELETE FROM notes WHERE id = ?').run(id);
+  await db.execute({
+    sql: 'DELETE FROM notes WHERE id = ?',
+    args: [id],
+  });
   res.status(204).send();
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+// Start the server only after the database table is confirmed to exist
+initDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
