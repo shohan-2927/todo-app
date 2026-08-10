@@ -44,15 +44,56 @@ async function deleteNote(id) {
   await loadNotes();
 }
 
-// Create the <li> element for a single note, including a delete button
+// Send the edited text to the backend, then refresh the list
+async function updateNote(id, newText) {
+  await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: newText }),
+  });
+  await loadNotes();
+}
+
+// Create the <li> element for a single note, including edit and delete buttons
 function renderNote(note) {
   const li = document.createElement('li');
-  li.textContent = note.text + ' ';
+
+  // The text span — shown normally, replaced by an input when editing
+  const textSpan = document.createElement('span');
+  textSpan.textContent = note.text;
+  textSpan.className = 'note-text';
+
+  const editBtn = document.createElement('button');
+  editBtn.textContent = 'Edit';
+  editBtn.onclick = () => enterEditMode(li, note);
 
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = 'x';
   deleteBtn.onclick = () => deleteNote(note.id);
 
+  li.appendChild(textSpan);
+  li.appendChild(editBtn);
   li.appendChild(deleteBtn);
   notesList.appendChild(li);
+}
+
+// Swaps a note's display text for an editable input box + Save/Cancel buttons
+function enterEditMode(li, note) {
+  li.innerHTML = ''; // clear the note's current contents
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = note.text;
+
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'Save';
+  saveBtn.onclick = () => updateNote(note.id, input.value.trim());
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.onclick = () => loadNotes(); // just reload, discarding the edit
+
+  li.appendChild(input);
+  li.appendChild(saveBtn);
+  li.appendChild(cancelBtn);
 }

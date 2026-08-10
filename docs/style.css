@@ -44,4 +44,16 @@ button {
   padding: 10px;
   margin-bottom: 8px;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#notes-list li .note-text {
+  flex: 1;
+}
+
+#notes-list li input[type="text"] {
+  flex: 1;
+  padding: 4px;
 }

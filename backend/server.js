@@ -30,7 +30,24 @@ app.post('/notes', async (req, res) => {
   res.status(201).json({ id: Number(result.lastInsertRowid), text });
 });
 
-// ROUTE 3: Delete a note
+// ROUTE 3: Update an existing note's text
+app.put('/notes/:id', async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { text } = req.body;
+
+  if (!text || text.trim() === '') {
+    return res.status(400).json({ error: 'Note text is required' });
+  }
+
+  await db.execute({
+    sql: 'UPDATE notes SET text = ? WHERE id = ?',
+    args: [text, id],
+  });
+
+  res.json({ id, text });
+});
+
+// ROUTE 4: Delete a note
 app.delete('/notes/:id', async (req, res) => {
   const id = parseInt(req.params.id);
   await db.execute({
