@@ -80,6 +80,78 @@ h1 span {
   color: var(--accent-coral);
 }
 
+.hidden {
+  display: none;
+}
+
+.error {
+  color: var(--accent-coral);
+  font-size: 13px;
+  min-height: 18px;
+  margin: 8px 0;
+}
+
+.toggle-auth {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.toggle-auth a {
+  color: var(--accent-coral);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.toggle-auth a:hover {
+  text-decoration: underline;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.notes-header a {
+  color: var(--accent-coral);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.notes-header a:hover {
+  text-decoration: underline;
+}
+
+#auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+#auth-form input {
+  padding: 8px 10px;
+  border: none;
+  border-bottom: 2px solid var(--ink);
+  background: transparent;
+  font-family: 'Courier Prime', monospace;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+}
+
+#auth-form input:focus {
+  border-bottom-color: var(--accent-coral);
+}
+
+#auth-form button {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
 #note-form {
   display: flex;
   gap: 8px;

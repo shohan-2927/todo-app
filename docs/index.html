@@ -16,12 +16,34 @@
       <div class="pad-body">
         <h1>Steno<span>&nbsp;Pad</span></h1>
 
-        <form id="note-form">
-          <input type="text" id="note-input" placeholder="Type a note..." required>
-          <button type="submit">Add</button>
-        </form>
+        <!-- AUTH SCREEN: shown when the user is not logged in -->
+        <div id="auth-screen">
+          <form id="auth-form">
+            <input type="email" id="auth-email" placeholder="Email" required>
+            <input type="password" id="auth-password" placeholder="Password" required>
+            <button type="submit" id="auth-submit-btn">Log In</button>
+          </form>
+          <p id="auth-error" class="error"></p>
+          <p class="toggle-auth">
+            <span id="auth-toggle-text">No account?</span>
+            <a href="#" id="auth-toggle-link">Sign up</a>
+          </p>
+        </div>
 
-        <ul id="notes-list"></ul>
+        <!-- NOTES SCREEN: shown once logged in -->
+        <div id="notes-screen" class="hidden">
+          <div class="notes-header">
+            <span id="user-email"></span>
+            <a href="#" id="logout-link">Log out</a>
+          </div>
+
+          <form id="note-form">
+            <input type="text" id="note-input" placeholder="Type a note..." required>
+            <button type="submit">Add</button>
+          </form>
+
+          <ul id="notes-list"></ul>
+        </div>
       </div>
     </div>
   </div>
