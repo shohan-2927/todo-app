@@ -4,21 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Notes App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <h1>My Notes</h1>
+    <div class="pad">
+      <div class="pad-margin"></div>
+      <div class="pad-body">
+        <h1>Steno<span>&nbsp;Pad</span></h1>
 
-    <!-- Form to add a new note -->
-    <form id="note-form">
-      <input type="text" id="note-input" placeholder="Write a note..." required>
-      <button type="submit">Add Note</button>
-    </form>
+        <form id="note-form">
+          <input type="text" id="note-input" placeholder="Type a note..." required>
+          <button type="submit">Add</button>
+        </form>
 
-    <!-- Notes will be displayed here -->
-    <ul id="notes-list"></ul>
+        <ul id="notes-list"></ul>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
